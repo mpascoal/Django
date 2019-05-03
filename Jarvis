@@ -1,0 +1,25 @@
+from ibm_watson import AssistantV1
+import json
+
+inputConsole = ''
+
+def auth():
+    return AssistantV1(
+        version='2019-05-02',
+        url='https://gateway-wdc.watsonplatform.net/assistant/api',
+        iam_apikey='41-IguLnbh5Z_dCydcxQ2aGAQ2hfRzMR36rJJaWiKLUh'
+    )
+def question(pergunta):
+    assistant = auth()
+    response = assistant.message(workspace_id='33977ab3-563c-4245-957b-d4286632a8cf',input={'text':pergunta}).get_result()
+    output = response['output']
+    response = output['generic']
+    #print(json.dumps(response))
+
+    for r in response:
+        print(r['text'])
+print('Bem vindo ao Watson: \nEm que posso te ajudar?')
+while (inputConsole != 'exit'):
+    inputConsole = input('\n')
+    if inputConsole != 'exit':
+        question(inputConsole)
